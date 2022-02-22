@@ -1,0 +1,41 @@
+{
+  "name": "BlockID",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "android": "ENVFILE=.env react-native run-android",
+    "ios-simulator": "ENVFILE=.env npx react-native run-ios",
+    "ios-device": "ENVFILE=.env npx react-native run-ios --device",
+    "start": "ENVFILE=.env react-native start",
+    "test": "jest",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "@react-navigation/native": "^6.0.8",
+    "@react-navigation/native-stack": "^6.5.0",
+    "@solana/web3.js": "^1.35.0",
+    "query-string": "^7.1.1",
+    "react": "17.0.2",
+    "react-native": "0.67.2",
+    "react-native-camera": "^4.2.1",
+    "react-native-config": "^1.4.5",
+    "react-native-permissions": "^3.2.0",
+    "react-native-qrcode-scanner": "^1.5.5",
+    "react-native-safe-area-context": "^3.4.1",
+    "react-native-screens": "^3.12.0",
+    "react-native-size-matters": "^0.4.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.17.5",
+    "@babel/runtime": "^7.17.2",
+    "@react-native-community/eslint-config": "^3.0.1",
+    "babel-jest": "^27.5.1",
+    "eslint": "^8.9.0",
+    "jest": "^27.5.1",
+    "metro-react-native-babel-preset": "^0.68.0",
+    "react-test-renderer": "17.0.2"
+  },
+  "jest": {
+    "preset": "react-native"
+  }
+}
