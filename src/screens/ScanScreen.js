@@ -16,8 +16,6 @@ export default class ScanScreen extends React.Component {
                 domain: parsedQRCodeData.query.domain,
                 action: parsedQRCodeData.query.action
             })
-        } else {
-            // TODO - Show wrong format error.
         }
     };
 

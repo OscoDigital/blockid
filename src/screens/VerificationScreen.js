@@ -1,12 +1,18 @@
 import React from 'react';
-import {SafeAreaView, Text, StyleSheet, Button, Alert, TextInput, View, TouchableOpacity} from "react-native";
+import {SafeAreaView, Text, StyleSheet, TextInput, View, TouchableOpacity, Alert} from "react-native";
 import {moderateScale} from 'react-native-size-matters';
-import Config from "react-native-config";
+import * as solanaApi from "../services/SolanaAPI";
 
-const VerificationScreen = ({ navigation, route }) => {
-    console.debug('publicKey: ' + Config.WALLET_PUBLIC_KEY);
-    console.debug('privateKey: ' + Config.WALLET_PRIVATE_KEY);
-    console.debug('params: ' + JSON.stringify(route.params));
+const VerificationScreen = ({ navigation: { goBack }, route }) => {
+
+    const confirmBlockId = () => {
+        solanaApi.confirmBlockId(route.params.publicKey).then((transactionId: string) => {
+            Alert.alert('Transaction successful', 'You have successfully approved the action. TransactionId: ' + transactionId);
+            goBack();
+        }).catch((error) => {
+            Alert.alert('Transaction failed', '' + error);
+        })
+    }
 
     return (
         <View style={styles.container}>
@@ -35,7 +41,7 @@ const VerificationScreen = ({ navigation, route }) => {
             </View>
             <TouchableOpacity
                 style={styles.button}
-                onPress={() => Alert.alert('Button with adjusted color pressed')}>
+                onPress={confirmBlockId}>
                 <Text style={styles.buttonLabel}>Confirm {route.params.action}</Text>
             </TouchableOpacity>
         </View>

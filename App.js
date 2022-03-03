@@ -11,6 +11,7 @@ import {NavigationContainer} from "@react-navigation/native";
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import ScanScreen from "./src/screens/ScanScreen";
 import VerificationScreen from "./src/screens/VerificationScreen";
+import 'react-native-url-polyfill/auto';
 
 const Stack = createNativeStackNavigator();
 
