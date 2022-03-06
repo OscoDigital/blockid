@@ -4,6 +4,7 @@ import QRCodeScanner from "react-native-qrcode-scanner";
 import {Text, StyleSheet} from "react-native";
 import * as QueryString from "query-string";
 import {moderateScale} from "react-native-size-matters";
+import GradientText from "../components/GradientText";
 
 export default class ScanScreen extends React.Component {
     onSuccess = e => {
@@ -15,7 +16,7 @@ export default class ScanScreen extends React.Component {
                 publicKey: parsedQRCodeData.query.publickey,
                 domain: parsedQRCodeData.query.domain,
                 action: parsedQRCodeData.query.action
-            })
+            });
         }
     };
 
@@ -32,7 +33,10 @@ export default class ScanScreen extends React.Component {
                     </Text>
                 }
                 bottomContent={
-                    <Text style={styles.footerText}>This project was build for the Riptide Hackathon.</Text>
+                    <GradientText
+                        colors={['#C438F0', '#7195C9', '#6EEAAE']}
+                        style={styles.footerText}>This project was build for the Riptide Hackathon.
+                    </GradientText>
                 }
             />
         );

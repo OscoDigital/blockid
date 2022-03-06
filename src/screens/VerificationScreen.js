@@ -1,22 +1,31 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {SafeAreaView, Text, StyleSheet, TextInput, View, TouchableOpacity, Alert} from "react-native";
 import {moderateScale} from 'react-native-size-matters';
 import * as solanaApi from "../services/SolanaAPI";
+import GradientButton from "../components/GradientButton";
+import Loader from "../components/Loader";
 
 const VerificationScreen = ({ navigation: { goBack }, route }) => {
+    const [loading, setLoading] = useState(false);
 
     const confirmBlockId = () => {
+        setLoading(true);
+
         solanaApi.confirmBlockId(route.params.publicKey).then((transactionId: string) => {
             Alert.alert('Transaction successful', 'You have successfully approved the action. TransactionId: ' + transactionId);
             goBack();
         }).catch((error) => {
             Alert.alert('Transaction failed', '' + error);
-        })
+        }).finally(() => {
+            setLoading(false);
+        });
     }
 
     return (
         <View style={styles.container}>
             <SafeAreaView/>
+            <Loader loading={loading}/>
+
             <Text style={styles.infoLabel}>Do you really want to connect your wallet for the following website?</Text>
             <View style={{marginTop: 24}}>
                 <Text style={styles.inputTextLabel}>Destination address:</Text>
@@ -39,11 +48,10 @@ const VerificationScreen = ({ navigation: { goBack }, route }) => {
                     value={route.params.action}
                 />
             </View>
-            <TouchableOpacity
-                style={styles.button}
-                onPress={confirmBlockId}>
-                <Text style={styles.buttonLabel}>Confirm {route.params.action}</Text>
-            </TouchableOpacity>
+            <GradientButton
+                title={"Confirm " + route.params.action}
+                enabled={!loading}
+                onPress={confirmBlockId}/>
         </View>
     );
 };
@@ -73,25 +81,6 @@ const styles = StyleSheet.create({
         borderRadius: moderateScale(8),
         paddingHorizontal: moderateScale(12),
         paddingTop: moderateScale(15),
-    },
-    button: {
-        display: 'flex',
-        height: moderateScale(45),
-        borderRadius: moderateScale(8),
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginTop: moderateScale(16),
-
-        backgroundColor: '#777',
-        shadowColor: '#000000',
-        shadowOpacity: 0.2,
-        shadowOffset: { height: 8, width: 0 },
-        shadowRadius: 8,
-    },
-    buttonLabel: {
-        fontSize: moderateScale(16),
-        fontWeight: '500',
-        color: '#FFFFFF',
     },
 });
 
